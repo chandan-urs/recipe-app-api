@@ -7,7 +7,7 @@ class AdminTests(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.adminUser = get_user_model().objects.create_super_user(
+        self.adminUser = get_user_model().objects.create_superuser(
             email="admin@mindtree.com",
             password="Test123",
         )
