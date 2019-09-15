@@ -7,8 +7,10 @@ from rest_framework import status
 
 CREATE_USER_URL = reverse('user:create')
 
+
 def create_user(**params):
     return get_user_model().objects.create_user(**params)
+
 
 class PublicUserApiTests(TestCase):
     """Test user API(public)"""
@@ -18,9 +20,9 @@ class PublicUserApiTests(TestCase):
 
     def create_calid_user_success(self):
         payload = {
-        "email": "Chandan@gmail.com",
-        "password": "pass123",
-        "name": "Chandan"
+            "email": "Chandan@gmail.com",
+            "password": "pass123",
+            "name": "Chandan"
         }
         res = self.client.post(CREATE_USER_URL, payload)
 
@@ -32,8 +34,8 @@ class PublicUserApiTests(TestCase):
     def test_user_exists(self):
         """Test creating a user that already exists fails"""
         payload = {
-        "email": "p.chandan@gmail.com",
-        "password": "pass123"
+            "email": "p.chandan@gmail.com",
+            "password": "pass123"
         }
         create_user(**payload)
 
@@ -47,5 +49,6 @@ class PublicUserApiTests(TestCase):
         res = self.client.post(CREATE_USER_URL, payload)
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
-        user_exists = get_user_model().objects.filter(email=payload["email"]).exists()
+        user_exists = get_user_model().objects.filter(email=payload["email"]) \
+            .exists()
         self.assertFalse(user_exists)

@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 
 from rest_framework import serializers
 
+
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the user object"""
 
@@ -13,4 +14,3 @@ class UserSerializer(serializers.ModelSerializer):
         def create(self, validated_data):
             """create a new user with encrypted password and return it"""
             return get_user_model().objects.create_user(**validated_data)
-        
